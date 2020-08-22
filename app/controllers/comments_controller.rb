@@ -9,9 +9,10 @@ class CommentsController < ApplicationController
 		comment.book_id = book.id
 		if comment.save
 		   flash[:notice] = "You have created book_comment successfully."
-		   redirect_back(fallback_location: root_path)
+		   @book = Book.find(params[:book_id])
+		   @book_comments = @book.comments
 		else
-			redirect_back(fallback_location: root_path)
+			
 		end
 	end
 
@@ -19,7 +20,8 @@ class CommentsController < ApplicationController
 		book = Book.find(params[:book_id])
 		comment = current_user.comments.find_by(book_id: book.id)
 		comment.destroy
-		redirect_back(fallback_location: root_path)
+		@book = Book.find(params[:book_id])
+		@book_comments = @book.comments
 	end
 
 	private
