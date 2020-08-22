@@ -1,0 +1,49 @@
+<% if @user_or_book == "1"%>
+    <% if @users.count == 0 %>
+        <p>該当するユーザーはいません</p>
+    <% else %>
+        <h1>User search for '<%= params[:search] %>'</h1>
+        <table  class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Introduction</th>
+                </tr>
+            </thead>
+            <% @users.each do |user| %>
+                <tbody>
+                    <tr>
+                        <td><%= attachment_image_tag(user, :profile_image, :fill, 70, 70, fallback: "no_image.jpg") %></td>
+                        <td><%= user.name %></td>
+                        <td><%= user.introduction %></td>
+                    </tr>
+                </tbody>
+            <% end %>
+        </table>
+    <% end %>
+<% else %>
+    <% if @books.count == 0 %>
+        <p>該当する投稿はありません</p>
+    <% else %>
+        <h2>Book search for '<%= params[:search] %>'</h2>
+        <table class="table">
+            <thead
+                <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Opinion</th>
+                </tr>
+            </thead>
+            <% @books.each do |book| %>
+                <tbody>
+                    <tr>
+                        <td><%= attachment_image_tag(book.user, :profile_image, :fill, 70, 70, fallback: "no_image.jpg") %></td>
+                        <td><%= book.title %></td>
+                        <td><%= book.body %></td>
+                    </tr>
+                </tbody>
+            <% end %>
+        </table>
+    <% end %>
+<% end %>
